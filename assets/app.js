@@ -143,11 +143,11 @@ document.querySelector('#book-list').addEventListener('click', (e)=>{
     Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
 
     // show success message
-    UI.showAlert('Book Removed', 'success')
+    UI.showAlert('Book Removed', 'danger')
 })
 
+// Event: to hide button when inputs are empty
 const myinput = document.querySelectorAll('input');
-
 myinput.forEach((inputs) => {
     // console.log(input);
     inputs.addEventListener('keyup', (e)=>{
