@@ -36,6 +36,17 @@ h1{
     font-weight: 400;
     color: #FF4D6A;
 }
+#form-label2 span{
+    font-size: 20px;
+    font-weight: 800;
+    color: #FF4D6A;
+}
+#form-label2{
+    font-family: 'Mulish', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FF4D6A;
+}
 input[type=text] {
     width: 100%;
     padding: 12px 20px;
