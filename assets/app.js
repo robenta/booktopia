@@ -12,20 +12,20 @@ class Book{
 class UI{
 
     static addBookToList(book){
-    const list = document.querySelector('#book-list');
+        const list = document.querySelector('#book-list');
+        const row = document.createElement('tr')
 
-    const row = document.createElement('tr')
-    row.innerHTML = `
-    <td><img src="/assets/img/booktopia.png" alt="" class="img-fluid" width="30" height="30"></td>
-    <td>${book.title}</td>
-    <td>${book.author}</td>
-    <td>${book.genre}</td>
-    <td>${book.isbn}</td>
-    <td><a href="#" class="btn btn-sm delete" style="background: #FF4D6A;color: rgb(244, 226, 229)">X</a></td>
-    `
+        row.innerHTML = `
+        <td><img src="/assets/img/booktopia.png" alt="" class="img-fluid" width="30" height="30"></td>
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.genre}</td>
+        <td>${book.isbn}</td>
+        <td><a href="#" class="btn btn-sm delete" style="background: #FF4D6A;color: rgb(244, 226, 229)">X</a></td>
+        `
 
-    list.appendChild(row)
-   }
+        list.appendChild(row)
+    }
 
     static deleteBook(el){
         if(el.classList.contains('delete')){
@@ -46,42 +46,43 @@ class UI{
         setTimeout(()=> document.querySelector('.alert').remove(), 3000)
     }
     static clearFields(){
-    document.querySelector('#title').value = ''
-    document.querySelector('#author').value = ''
-    document.querySelector('#genre').value = ''
-    document.querySelector('#isbn').value = ''
+        document.querySelector('#title').value = ''
+        document.querySelector('#author').value = ''
+        document.querySelector('#genre').value = ''
+        document.querySelector('#isbn').value = ''
     }
 }
 
 // Store Class: Handles storage
 class Store{
 
+    static getBooks(){
+        let books;
+        if(localStorage.getItem('books') === null){
+            books = []
+        }else{
+            books = JSON.parse(localStorage.getItem('books'))
+        }
+        return books;
+    }
+
+    static addBook(book){
+        const books = Store.getBooks()
+        
+        books.push(book);
+        
+        localStorage.setItem('books', JSON.stringify(books))
+    }
+    
     static displayBooks(){
         const books = Store.getBooks();
 
-        // books.forEach((book) => UI.addBookToList(book))
         books.forEach(function(book){
             const ui = new UI
             ui.addBookToList(book)
         })
     }
-   static getBooks(){
-    let books;
-    if(localStorage.getItem('books') === null){
-        books = []
-    }else{
-        books = JSON.parse(localStorage.getItem('books'))
-    }
-    return books;
-   }
-   static addBook(book){
-    const books = Store.getBooks()
-
-    books.push(book);
-
-    localStorage.setItem('books', JSON.stringify(books))
-   }
-   static removeBook(isbn){
+    static removeBook(isbn){
         const books = Store.getBooks();
 
         books.forEach((book, index)=>{
@@ -104,10 +105,10 @@ document.querySelector('#book-form').addEventListener('submit', (e)=>{
     e.preventDefault()
 
     // Get form values
-   const title = document.querySelector('#title').value 
-   const author = document.querySelector('#author').value 
-   const isbn = document.querySelector('#isbn').value 
-   const genre = document.querySelector('#genre').value 
+    const title = document.querySelector('#title').value 
+    const author = document.querySelector('#author').value 
+    const isbn = document.querySelector('#isbn').value 
+    const genre = document.querySelector('#genre').value 
    
 
     // Validate
@@ -136,11 +137,11 @@ document.querySelector('#book-form').addEventListener('submit', (e)=>{
 // Event: Remove a book
 
 document.querySelector('#book-list').addEventListener('click', (e)=>{
-    // Remove book form UI
+    // Remove book from UI
     UI.deleteBook(e.target);
 
-    // Remove book form UI
-    Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
+    // Remove book from store
+    // Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
 
     // show success message
     UI.showAlert('Book Removed', 'danger')
@@ -150,6 +151,7 @@ document.querySelector('#book-list').addEventListener('click', (e)=>{
 const myInput = document.querySelectorAll('input');
 
 myInput.forEach((inputs) => {
+
     inputs.addEventListener('keyup', (e)=>{
         if([inputs.value !== '']){
             document.querySelector('#book-button').classList.remove('d-none')
