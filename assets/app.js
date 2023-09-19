@@ -147,11 +147,10 @@ document.querySelector('#book-list').addEventListener('click', (e)=>{
 })
 
 // Event: to hide button when inputs are empty
-const myinput = document.querySelectorAll('input');
-myinput.forEach((inputs) => {
-    // console.log(input);
+const myInput = document.querySelectorAll('input');
+
+myInput.forEach((inputs) => {
     inputs.addEventListener('keyup', (e)=>{
-        console.log('hello');       
         if([inputs.value !== '']){
             document.querySelector('#book-button').classList.remove('d-none')
         }

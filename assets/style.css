@@ -5,6 +5,8 @@ body{
 }
 h1{
     font-family: 'Playfair Display SC', serif;
+    font-weight: 500;
+    font-style: italic;
 }
 .book-form{
     font-family: 'Playfair Display SC', serif;
@@ -31,6 +33,7 @@ h1{
 #form-label2{
     font-family: 'Mulish', sans-serif;
     font-size: 18px;
+    font-weight: 400;
     color: #FF4D6A;
 }
 input[type=text] {
